@@ -2,11 +2,12 @@
  * @Author: micki 
  * @Date: 2022-03-02 11:14:01 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-02 15:40:16
+ * @Last Modified time: 2022-03-02 16:24:25
  * 登录页面
  */
 
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:wan_android_flutter/api/http.dart';
@@ -20,6 +21,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // 账号输入框控制器
+  var accountTextContriller = TextEditingController();
+  // 密码输入框控制器
+  var passwordTextController = TextEditingController();
+  var accountErrorText = '';
+  var passwordErrorText = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,65 +38,109 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-}
 
 // 账号输入框
-Widget _accountInput() {
-  return Padding(
-    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-    child: TextField(
-      style: const TextStyle(fontSize: 15),
-      decoration: InputDecoration(
-          fillColor: MyColors.white,
-          hintText: '账号',
-          filled: true,
-          isCollapsed: true,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(6),
-              borderSide: BorderSide.none)),
-    ),
-  );
-}
+  Widget _accountInput() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+      child: TextField(
+        controller: accountTextContriller,
+        style: const TextStyle(fontSize: 15),
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+            fillColor: MyColors.white,
+            hintText: '账号',
+            errorText: accountErrorText,
+            filled: true,
+            isCollapsed: true,
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6),
+                borderSide: BorderSide.none)),
+        onChanged: (value) {
+          if (value.isNotEmpty) {
+            setState(() {
+              accountErrorText = '';
+            });
+          } else {
+            setState(() {
+              accountErrorText = '账号不能为空';
+            });
+          }
+        },
+      ),
+    );
+  }
 
 // 密码输入框
-Widget _passwordInput() {
-  return Padding(
-    padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-    child: TextField(
-      style: const TextStyle(fontSize: 15),
-      decoration: InputDecoration(
-          fillColor: MyColors.white,
-          hintText: '密码',
-          filled: true,
-          isCollapsed: true,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(6),
-              borderSide: BorderSide.none)),
-    ),
-  );
-}
+  Widget _passwordInput() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+      child: TextField(
+        controller: passwordTextController,
+        style: const TextStyle(fontSize: 15),
+        keyboardType: TextInputType.text,
+        obscureText: true,
+        decoration: InputDecoration(
+            fillColor: MyColors.white,
+            hintText: '密码',
+            errorText: passwordErrorText,
+            filled: true,
+            isCollapsed: true,
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6),
+                borderSide: BorderSide.none)),
+        onChanged: (value) {
+          if (value.isNotEmpty) {
+            setState(() {
+              passwordErrorText = '';
+            });
+          } else {
+            setState(() {
+              passwordErrorText = '密码不能为空';
+            });
+          }
+        },
+      ),
+    );
+  }
 
 // 登录按钮
-Widget _loginBtn() {
-  return Container(
-    width: double.infinity,
-    padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-    child: TextButton(
-      onPressed: () async {
-        var result = await Http.get('wxarticle/chapters/json',null);
-        log(result.data.toString());
+  Widget _loginBtn() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+      child: TextButton(
+        onPressed: () async {
+          if (accountTextContriller.text.isEmpty) {
+            setState(() {
+              accountErrorText = '账号不能为空';
+            });
+            return;
+          }
+          if (passwordTextController.text.isEmpty) {
+            setState(() {
+              passwordErrorText = '密码不能为空';
+            });
+            return;
+          }
+          // var result = await Http.get('user/login', '登录');
+        },
+        child: const Text('登录'),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(MyColors.btnBgColor),
+            foregroundColor: MaterialStateProperty.all(MyColors.white)),
+      ),
+    );
+  }
+}
 
-        // result.
-        // log(result.whenComplete(() => null));
-      },
-      child: const Text('登录'),
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(MyColors.btnBgColor),
-          foregroundColor: MaterialStateProperty.all(MyColors.white)),
-    ),
+Widget toast(String msg) {
+  return Tooltip(
+    message: msg,
+    height: 60,
   );
 }
