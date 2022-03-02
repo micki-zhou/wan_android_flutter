@@ -2,9 +2,10 @@
  * @Author: micki 
  * @Date: 2022-03-02 15:07:27 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-02 17:38:53
+ * @Last Modified time: 2022-03-02 18:26:08
  * http
  */
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -14,6 +15,7 @@ class Http {
   static Dio _getDio() {
     _dio ??= Dio();
     _dio?.options.baseUrl = 'https://wanandroid.com/';
+    _dio?.options.connectTimeout = 10000;
     // _dio?.options.contentType = 'application/json;charset=UTF-8';
     return _dio!;
   }
@@ -32,6 +34,7 @@ class Http {
     final response =
         await _getDio().post(url, queryParameters: queryParam, data: formData,);
     log(tag + '---response: ' + response.data.toString());
+    // log(tag + '---response 22: ' + jsonDecode(response.toString()).toString());
     return response;
   }
 }

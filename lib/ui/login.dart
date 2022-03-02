@@ -2,7 +2,7 @@
  * @Author: micki 
  * @Date: 2022-03-02 11:14:01 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-02 17:41:44
+ * @Last Modified time: 2022-03-02 18:26:22
  * 登录页面
  */
 
@@ -133,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
           map['password'] = passwordTextController.text;
           var result =
               await Http.post('user/login', '登录', data: map);
-          log(result.data['data']['id'].toString()); 
+          // log(result.data['data']['id'].toString());  
 
         },
         child: const Text('登录'),
