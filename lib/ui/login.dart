@@ -2,13 +2,14 @@
  * @Author: micki 
  * @Date: 2022-03-02 11:14:01 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-02 16:24:25
+ * @Last Modified time: 2022-03-02 17:41:44
  * 登录页面
  */
 
+import 'dart:collection';
 import 'dart:developer';
-import 'dart:math';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:wan_android_flutter/api/http.dart';
 import 'package:wan_android_flutter/config/my_colors.dart';
@@ -127,7 +128,13 @@ class _LoginPageState extends State<LoginPage> {
             });
             return;
           }
-          // var result = await Http.get('user/login', '登录');
+          var map = HashMap<String,dynamic>();
+          map['username'] = accountTextContriller.text;
+          map['password'] = passwordTextController.text;
+          var result =
+              await Http.post('user/login', '登录', data: map);
+          log(result.data['data']['id'].toString()); 
+
         },
         child: const Text('登录'),
         style: ButtonStyle(

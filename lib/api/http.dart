@@ -2,7 +2,7 @@
  * @Author: micki 
  * @Date: 2022-03-02 15:07:27 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-02 15:39:44
+ * @Last Modified time: 2022-03-02 17:38:53
  * http
  */
 import 'dart:developer';
@@ -14,21 +14,24 @@ class Http {
   static Dio _getDio() {
     _dio ??= Dio();
     _dio?.options.baseUrl = 'https://wanandroid.com/';
+    // _dio?.options.contentType = 'application/json;charset=UTF-8';
     return _dio!;
   }
 
-  static Future<Response> get(String url, String? tag,
+  static Future<Response> get(String url, String tag,
       {Map<String, dynamic>? queryParam}) async {
     final response = await _getDio().get(url, queryParameters: queryParam);
-    log(tag ?? '' ': ' + response.data.toString());
+    log(tag + '---response: ' + response.data.toString());
     return response;
   }
 
-  static Future<Response> post(String url, String? tag, dynamic data,
-      {Map<String, dynamic>? queryParam}) async {
+  static Future<Response> post(String url, String tag,
+      {dynamic data, Map<String, dynamic>? queryParam}) async {
+    log(tag + '---body: ' + data.toString());
+    var formData= FormData.fromMap(data);
     final response =
-        await _getDio().post(url, queryParameters: queryParam, data: data);
-    log(tag ?? '' ': ' + response.data.toString());
+        await _getDio().post(url, queryParameters: queryParam, data: formData,);
+    log(tag + '---response: ' + response.data.toString());
     return response;
   }
 }
