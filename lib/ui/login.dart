@@ -2,12 +2,14 @@
  * @Author: micki 
  * @Date: 2022-03-02 11:14:01 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-02 12:46:46
+ * @Last Modified time: 2022-03-02 15:40:16
  * 登录页面
  */
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:wan_android_flutter/api/dio_config.dart';
+import 'package:wan_android_flutter/api/http.dart';
 import 'package:wan_android_flutter/config/my_colors.dart';
 
 class LoginPage extends StatefulWidget {
@@ -76,14 +78,17 @@ Widget _loginBtn() {
     width: double.infinity,
     padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
     child: TextButton(
-        onPressed: () {
-          get('wxarticle/chapters/json','登录');
-        },
-        child: const Text('登录'),
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(MyColors.btnBgColor),
-            foregroundColor: MaterialStateProperty.all(MyColors.white)),
-      ),
+      onPressed: () async {
+        var result = await Http.get('wxarticle/chapters/json',null);
+        log(result.data.toString());
 
+        // result.
+        // log(result.whenComplete(() => null));
+      },
+      child: const Text('登录'),
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(MyColors.btnBgColor),
+          foregroundColor: MaterialStateProperty.all(MyColors.white)),
+    ),
   );
 }
