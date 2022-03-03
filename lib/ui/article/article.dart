@@ -2,7 +2,7 @@
  * @Author: micki 
  * @Date: 2022-03-03 16:01:42 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-03 18:18:24
+ * @Last Modified time: 2022-03-03 18:25:39
  * 文章列表页面
  */
 
@@ -33,7 +33,7 @@ class _ArticlePageState extends State<ArticlePage> {
     );
   }
 
-// 获取文章列表数据
+  // 获取文章列表数据
   Future<List<ArticleData>?> _getArticleListData() async {
     var result = await Http.get('article/list/0/json', '文章列表');
     if (result.data['errorCode'] == 0) {
@@ -46,6 +46,7 @@ class _ArticlePageState extends State<ArticlePage> {
     return null;
   }
 
+  // 文章列表ui
   Widget _articleList() {
     return ListView.builder(
       scrollDirection: Axis.vertical,
@@ -56,7 +57,7 @@ class _ArticlePageState extends State<ArticlePage> {
     );
   }
 
-  /// todo 转载数据
+  /// todo 装载数据 文章列表item ui
   Widget _articleListItem(
     int index,
   ) {
