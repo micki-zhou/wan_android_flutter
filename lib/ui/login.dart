@@ -2,7 +2,7 @@
  * @Author: micki 
  * @Date: 2022-03-02 11:14:01 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-02 18:26:22
+ * @Last Modified time: 2022-03-03 11:17:39
  * 登录页面
  */
 
@@ -133,6 +133,11 @@ class _LoginPageState extends State<LoginPage> {
           map['password'] = passwordTextController.text;
           var result =
               await Http.post('user/login', '登录', data: map);
+          if(result.data['errorCode'] == 0) {
+            log('登录成功！');
+          } else {
+            log(result.data['errorMsg']);
+          }
           // log(result.data['data']['id'].toString());  
 
         },
