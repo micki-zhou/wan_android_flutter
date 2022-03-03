@@ -2,15 +2,15 @@
  * @Author: micki 
  * @Date: 2022-03-02 11:14:01 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-03 11:17:39
+ * @Last Modified time: 2022-03-03 11:58:03
  * 登录页面
  */
 
 import 'dart:collection';
 import 'dart:developer';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wan_android_flutter/api/http.dart';
 import 'package:wan_android_flutter/config/my_colors.dart';
 
@@ -128,18 +128,15 @@ class _LoginPageState extends State<LoginPage> {
             });
             return;
           }
-          var map = HashMap<String,dynamic>();
+          var map = HashMap<String, dynamic>();
           map['username'] = accountTextContriller.text;
           map['password'] = passwordTextController.text;
-          var result =
-              await Http.post('user/login', '登录', data: map);
-          if(result.data['errorCode'] == 0) {
+          var result = await Http.post('user/login', '登录', data: map);
+          if (result.data['errorCode'] == 0) {
             log('登录成功！');
           } else {
-            log(result.data['errorMsg']);
+            Fluttertoast.showToast(msg: result.data['errorMsg']);
           }
-          // log(result.data['data']['id'].toString());  
-
         },
         child: const Text('登录'),
         style: ButtonStyle(
