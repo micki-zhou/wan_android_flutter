@@ -2,12 +2,12 @@
  * @Author: micki 
  * @Date: 2022-03-02 11:14:52 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-03 12:38:34
+ * @Last Modified time: 2022-03-03 16:32:11
  * 主页
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:wan_android_flutter/ui/login.dart';
+import 'package:wan_android_flutter/ui/login/login.dart';
 
 void main() {
   runApp(const MyApp());

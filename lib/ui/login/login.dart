@@ -2,7 +2,7 @@
  * @Author: micki 
  * @Date: 2022-03-02 11:14:01 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-03 16:21:49
+ * @Last Modified time: 2022-03-03 17:45:14
  * 登录页面
  */
 
@@ -15,7 +15,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wan_android_flutter/api/http.dart';
 import 'package:wan_android_flutter/config/my_colors.dart';
 
-import 'home.dart';
+import '../home/home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -26,9 +26,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // 账号输入框控制器
-  var accountTextContriller = TextEditingController();
+  var accountTextContriller = TextEditingController(text: 'micki');
   // 密码输入框控制器
-  var passwordTextController = TextEditingController();
+  var passwordTextController = TextEditingController(text: '123456');
   var accountErrorText = '';
   var passwordErrorText = '';
 

@@ -2,15 +2,15 @@
  * @Author: micki 
  * @Date: 2022-03-03 15:56:23 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-03 16:24:23
+ * @Last Modified time: 2022-03-03 16:32:29
  * 首页
  */
 import 'package:flutter/material.dart';
-import 'package:wan_android_flutter/ui/article.dart';
-import 'package:wan_android_flutter/ui/message.dart';
-import 'package:wan_android_flutter/ui/mine.dart';
+import 'package:wan_android_flutter/ui/article/article.dart';
+import 'package:wan_android_flutter/ui/message/message.dart';
+import 'package:wan_android_flutter/ui/mine/mine.dart';
 
-import '../config/my_colors.dart';
+import '../../config/my_colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

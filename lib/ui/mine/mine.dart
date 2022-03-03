@@ -1,8 +1,8 @@
 /*
  * @Author: micki 
  * @Date: 2022-03-03 15:58:02 
- * @Last Modified by:   micki 
- * @Last Modified time: 2022-03-03 15:58:02 
+ * @Last Modified by: micki
+ * @Last Modified time: 2022-03-03 16:30:07
  * 个人中心
  */
 import 'package:flutter/cupertino.dart';
@@ -18,7 +18,7 @@ class _MinePageState extends State<MinePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      
+      child: const Text('我的'),
     );
   }
 }
