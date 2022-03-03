@@ -2,7 +2,7 @@
  * @Author: micki 
  * @Date: 2022-03-02 11:14:01 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-03 12:40:19
+ * @Last Modified time: 2022-03-03 16:21:49
  * 登录页面
  */
 
@@ -14,6 +14,8 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wan_android_flutter/api/http.dart';
 import 'package:wan_android_flutter/config/my_colors.dart';
+
+import 'home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -137,7 +139,12 @@ class _LoginPageState extends State<LoginPage> {
           if (result.data['errorCode'] == 0) {
             Fluttertoast.showToast(msg: '登录成功');
             SmartDialog.dismiss();
+            Navigator.pushAndRemoveUntil(context,
+                    MaterialPageRoute(builder: (context) {
+                  return const HomePage();
+                }), (route) => false);
           } else {
+            SmartDialog.dismiss();
             Fluttertoast.showToast(msg: result.data['errorMsg']);
           }
         },
