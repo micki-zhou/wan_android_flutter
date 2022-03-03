@@ -2,7 +2,7 @@
  * @Author: micki 
  * @Date: 2022-03-02 11:14:01 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-03 11:58:03
+ * @Last Modified time: 2022-03-03 12:40:19
  * 登录页面
  */
 
@@ -10,6 +10,7 @@ import 'dart:collection';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wan_android_flutter/api/http.dart';
 import 'package:wan_android_flutter/config/my_colors.dart';
@@ -131,9 +132,11 @@ class _LoginPageState extends State<LoginPage> {
           var map = HashMap<String, dynamic>();
           map['username'] = accountTextContriller.text;
           map['password'] = passwordTextController.text;
+          SmartDialog.showLoading(msg: '登录中');
           var result = await Http.post('user/login', '登录', data: map);
           if (result.data['errorCode'] == 0) {
-            log('登录成功！');
+            Fluttertoast.showToast(msg: '登录成功');
+            SmartDialog.dismiss();
           } else {
             Fluttertoast.showToast(msg: result.data['errorMsg']);
           }
