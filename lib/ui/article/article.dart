@@ -2,7 +2,7 @@
  * @Author: micki 
  * @Date: 2022-03-03 16:01:42 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-03 18:11:47
+ * @Last Modified time: 2022-03-03 18:18:24
  * 文章列表页面
  */
 
@@ -24,8 +24,6 @@ class _ArticlePageState extends State<ArticlePage> {
   @override
   void initState() {
     super.initState();
-
-    _getArticleListData();
   }
 
   @override

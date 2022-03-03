@@ -20,7 +20,7 @@ class ArticleData {
   var shareUser;
   var author;
 
-  ArticleData.fromJson(Map<String, dynamic> map) {
+  ArticleData.fromJson(dynamic map) {
     this.title = map['title'];
     this.collect = map['collect'];
     this.superChapterName = map['superChapterName'];
