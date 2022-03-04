@@ -73,7 +73,11 @@ class _HomePageState extends State<HomePage> {
           changePage(index);
         },
       ),
-      body: pages[bottomIndex],
+      // body: pages[bottomIndex],
+      body: IndexedStack(
+        index: bottomIndex,
+        children: pages,
+      ),
     );
   }
 

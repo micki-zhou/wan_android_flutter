@@ -2,7 +2,7 @@
  * @Author: micki 
  * @Date: 2022-03-03 16:01:42 
  * @Last Modified by: micki
- * @Last Modified time: 2022-03-04 16:22:50
+ * @Last Modified time: 2022-03-04 16:45:33
  * 文章列表页面
  */
 
@@ -11,6 +11,7 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:wan_android_flutter/api/http.dart';
 import 'package:wan_android_flutter/bean/article_bean.dart';
 import 'package:wan_android_flutter/config/my_colors.dart';
@@ -23,15 +24,18 @@ class ArticlePage extends StatefulWidget {
 }
 
 class _ArticlePageState extends State<ArticlePage> {
+  var _articleBuilderFutrue;
+
   @override
   void initState() {
     super.initState();
+    _articleBuilderFutrue ??= _getArticleListData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.commonPageGrayBg,
+      backgroundColor: MyColors.theme,
       body: _articleList(),
     );
   }
@@ -52,16 +56,23 @@ class _ArticlePageState extends State<ArticlePage> {
   // 文章列表ui
   Widget _articleList() {
     return FutureBuilder<List<ArticleData>?>(
-        future: _getArticleListData(),
+        future: _articleBuilderFutrue,
         builder:
             (BuildContext context, AsyncSnapshot<List<ArticleData>?> list) {
-          return ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: list.data == null ? 0 : list.data?.length,
-            itemBuilder: (BuildContext context, int index) {
-              return _articleListItem(list.data!, index);
-            },
-          );
+          switch (list.connectionState) {
+            case ConnectionState.none:
+              return const Text('none');
+            case ConnectionState.waiting:
+              return const CircularProgressIndicator();
+            default:
+              return ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: list.data == null ? 0 : list.data?.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return _articleListItem(list.data!, index);
+                },
+              );
+          }
         });
   }
 
@@ -76,30 +87,38 @@ class _ArticlePageState extends State<ArticlePage> {
       onTap: () {},
       child: Padding(
         padding: const EdgeInsets.all(8),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(
-            data.title,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Row(
-              children: [
-                Text(
-                  '作者: ' + data.author,
-                  style: const TextStyle(fontSize: 12),
-                ),
-                // Text('分类: ' + data.superChapterName + '/' + data.chapterName,
-                //     style: const TextStyle(fontSize: 12)),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text('时间: ' + data.niceDate,
-                      style: const TextStyle(fontSize: 12)),
-                )
-              ],
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          //color: MyColors.white,
+          decoration: BoxDecoration(
+              color: MyColors.white,
+              borderRadius: const BorderRadius.all(Radius.circular(6))),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(
+              data.title,
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-          )
-        ]),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Row(
+                children: [
+                  // Text(
+                  //   '作者: ' + data.author,
+                  //   style: const TextStyle(fontSize: 12),
+                  // ),
+                  Text('分类: ' + data.superChapterName + '/' + data.chapterName,
+                      style: const TextStyle(fontSize: 12)),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 28.0),
+                    child: Text('时间: ' + data.niceDate,
+                        style: const TextStyle(fontSize: 12)),
+                  )
+                ],
+              ),
+            )
+          ]),
+        ),
       ),
     );
   }
