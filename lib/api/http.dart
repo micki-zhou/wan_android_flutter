@@ -22,18 +22,22 @@ class Http {
   static Future<Response> get(String url, String tag,
       {Map<String, dynamic>? queryParam}) async {
     final response = await _getDio().get(url, queryParameters: queryParam);
-    log(tag + '---response: ' + response.data.toString());
+    // log(tag + '---response: ' + response.data.toString());
     return response;
   }
 
   static Future<Response> post(String url, String tag,
       {dynamic data, Map<String, dynamic>? queryParam}) async {
     log(tag + '---body: ' + data.toString());
-    var formData= FormData.fromMap(data);
-    final response =
-        await _getDio().post(url, queryParameters: queryParam, data: formData,);
-    log(tag + '---response: ' + response.data.toString());
-    // log(tag + '---response 22: ' + jsonDecode(response.toString()).toString());
+    var formData = FormData.fromMap(data);
+    final response = await _getDio().post(
+      url,
+      queryParameters: queryParam,
+      data: formData,
+    );
+    // log(tag + '---response: ' + response.data.toString());
+    log('cookie: ' + response.headers.toString());
+
     return response;
   }
 }

@@ -11,7 +11,6 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:wan_android_flutter/api/http.dart';
 import 'package:wan_android_flutter/bean/article_bean.dart';
 import 'package:wan_android_flutter/config/my_colors.dart';
@@ -107,7 +106,7 @@ class _ArticlePageState extends State<ArticlePage> {
                   //   '作者: ' + data.author,
                   //   style: const TextStyle(fontSize: 12),
                   // ),
-                  Text('分类: ' + data.superChapterName + '/' + data.chapterName,
+                  Text('分类: ' + data.superChapterName + ' / ' + data.chapterName,
                       style: const TextStyle(fontSize: 12)),
                   Padding(
                     padding: const EdgeInsets.only(left: 28.0),
