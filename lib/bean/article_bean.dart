@@ -19,6 +19,7 @@ class ArticleData {
   var chapterName;
   var shareUser;
   var author;
+  var niceDate;
 
   ArticleData.fromJson(dynamic map) {
     this.title = map['title'];
@@ -27,5 +28,6 @@ class ArticleData {
     this.chapterName = map['chapterName'];
     this.shareUser = map['shareUser'];
     this.author = map['author'];
+    this.niceDate = map['niceDate'];
   }
 }
