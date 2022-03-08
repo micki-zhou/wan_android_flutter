@@ -38,6 +38,8 @@ dependencies:
   fluttertoast: ^8.0.9
   # dialog
   flutter_smart_dialog: ^3.4.0
+  # cookie manager
+  dio_cookie_manager: ^2.0.0
 
 dev_dependencies:
   flutter_test:

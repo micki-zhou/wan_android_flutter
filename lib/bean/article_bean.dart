@@ -13,6 +13,7 @@ class Article {
 }
 
 class ArticleData {
+  var id;
   var title;
   var collect;
   var superChapterName;
@@ -22,6 +23,7 @@ class ArticleData {
   var niceDate;
 
   ArticleData.fromJson(dynamic map) {
+    this.id = map['id'];
     this.title = map['title'];
     this.collect = map['collect'];
     this.superChapterName = map['superChapterName'];

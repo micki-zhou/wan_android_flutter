@@ -101,18 +101,40 @@ class _ArticlePageState extends State<ArticlePage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
               child: Row(
+                // crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Text(
                   //   '作者: ' + data.author,
                   //   style: const TextStyle(fontSize: 12),
                   // ),
-                  Text('分类: ' + data.superChapterName + ' / ' + data.chapterName,
+                  Text(
+                      '分类: ' + data.superChapterName + ' / ' + data.chapterName,
                       style: const TextStyle(fontSize: 12)),
                   Padding(
-                    padding: const EdgeInsets.only(left: 28.0),
+                    padding: const EdgeInsets.only(left: 0),
                     child: Text('时间: ' + data.niceDate,
                         style: const TextStyle(fontSize: 12)),
-                  )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 0),
+                    child: GestureDetector(
+                      child: SizedBox(
+                        // alignment: Alignment.bottomRight,
+
+                        width: 20,
+                        height: 20,
+                        child: Image.asset(data.collect
+                            ? 'images/ic_collect_true.png'
+                            : 'images/ic_collect_false.png'),
+                      ),
+                      onTap: () async {
+                        var result = await Http.post('lg/collect/${data.id}/json', '收藏文章');
+                        data.collect = true;
+                        setState(() {});
+                      },
+                    ),
+                  ),
                 ],
               ),
             )

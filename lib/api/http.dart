@@ -8,6 +8,8 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:cookie_jar/cookie_jar.dart';
 
 class Http {
   static Dio? _dio;
@@ -15,6 +17,7 @@ class Http {
     _dio ??= Dio();
     _dio?.options.baseUrl = 'https://wanandroid.com/';
     _dio?.options.connectTimeout = 10000;
+    _dio?.interceptors.add(CookieManager(CookieJar()));
     // _dio?.options.contentType = 'application/json;charset=UTF-8';
     return _dio!;
   }
@@ -28,15 +31,24 @@ class Http {
 
   static Future<Response> post(String url, String tag,
       {dynamic data, Map<String, dynamic>? queryParam}) async {
-    log(tag + '---body: ' + data.toString());
-    var formData = FormData.fromMap(data);
-    final response = await _getDio().post(
-      url,
-      queryParameters: queryParam,
-      data: formData,
-    );
-    // log(tag + '---response: ' + response.data.toString());
-    log('cookie: ' + response.headers.toString());
+    var response;
+    if (data != null) {
+      log(tag + '---body: ' + data.toString());
+      var formData = FormData.fromMap(data);
+      response = await _getDio().post(
+        url,
+        queryParameters: queryParam,
+        data: formData,
+      );
+    } else {
+      response = await _getDio().post(
+        url,
+        queryParameters: queryParam,
+      );
+    }
+
+    log(tag + '---response: ' + response.data.toString());
+    // log('cookie: ' + response.headers.toString());
 
     return response;
   }
