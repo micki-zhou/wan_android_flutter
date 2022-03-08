@@ -25,7 +25,7 @@ class Http {
   static Future<Response> get(String url, String tag,
       {Map<String, dynamic>? queryParam}) async {
     final response = await _getDio().get(url, queryParameters: queryParam);
-    // log(tag + '---response: ' + response.data.toString());
+    log(tag + '---response: ' + response.data.toString());
     return response;
   }
 
